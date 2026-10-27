@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the array size:");
+        int n = sc.nextInt();
+
+        if (n <= 0) {
+            System.out.println("Array must not be empty");
+            sc.close();
+            return;
+        }
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter the array:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int currentelement;
+        int lar = arr[0];
+
+        // First pass: find the largest element
+        for (int i = 1; i < n; i++) {
+            currentelement = arr[i];
+
+            if (lar < currentelement) {
+                lar = currentelement;
+            }
+        }
+
+        System.out.println("Largest element is: " + lar);
+
+        // Second pass: find the second-largest distinct element
+        int seclargest = 0;
+        int found = 0;
+
+        for (int i = 0; i < n; i++) {
+            currentelement = arr[i];
+
+            if (currentelement < lar) {
+                if (found == 0 || currentelement > seclargest) {
+                    seclargest = currentelement;
+                    found = 1;
+                }
+            }
+        }
+
+        if (found == 1) {
+            System.out.println("Second largest element is: " + seclargest);
+        } else {
+            System.out.println("Second largest element is: -1");
+        }
+
+        sc.close();
+    }
+}
